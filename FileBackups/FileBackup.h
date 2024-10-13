@@ -14,9 +14,9 @@ public:
     map<time_t, vector<string>> blocks;
 
     FileBackup(const string &filename);
-    static void deleteBlock(FileBackup* f, int blockIndex, time_t timestamp, const vector<string> &latestImage);
-    static void updateNewImage(FileBackup* f, int blockIndex, time_t timestamp, const vector<string> &latestImage, const string &content);
-    static void print(const vector<string> &block);
+    void deleteBlock(FileBackup* f, int blockIndex, time_t timestamp, const vector<string> &latestImage);
+    void updateNewImage(FileBackup* f, int blockIndex, time_t timestamp, const vector<string> &latestImage, const string &content);
+    void print(const vector<string> &block);
 
 };
 

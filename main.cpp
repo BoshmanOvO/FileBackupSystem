@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     std::cout << "Hello, World!" << std::endl;
     MainBackup mb;
-    mb.fullBackup(1000, "file1", "I am ashish bostan");
+    mb.fullBackup(1000, "file1", "Dehradun is a good town");
     mb.readFile(1000, "file1");
 
     const BlockInfo bf1 = {1, " is a ni", 0};
