@@ -1,0 +1,3 @@
+/Users/skynet/CLionProjects/Comm/cmake-build-debug/CMakeFiles/Comm.dir
+/Users/skynet/CLionProjects/Comm/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/skynet/CLionProjects/Comm/cmake-build-debug/CMakeFiles/rebuild_cache.dir
