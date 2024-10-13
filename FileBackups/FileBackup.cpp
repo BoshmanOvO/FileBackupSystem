@@ -18,6 +18,18 @@ void FileBackup::updateNewImage(FileBackup* f, const int blockIndex, const time_
     f->lastUpdated = timestamp;
 }
 
+FileBackup* FileBackup::setNewImage(const vector<string> &block, time_t timestamp, string filename) {
+    auto *f = new FileBackup(filename);
+    f->blocks[timestamp] = block;
+    f->lastUpdated = timestamp;
+    return f;
+}
+
+void FileBackup::updateExisting(FileBackup *f, const vector<string> &block, time_t timestamp, string filename) {
+    f->blocks[timestamp] = block;
+    f->lastUpdated = timestamp;
+}
+
 void FileBackup::print(const vector<string> &block) {
     string content = "";
     for(const auto& block : block) {

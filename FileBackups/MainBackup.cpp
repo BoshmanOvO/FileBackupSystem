@@ -16,14 +16,10 @@ void MainBackup::fullBackup(const time_t timestamp, const string &filename, cons
         block.push_back(b);
     }
     if(globalBackup.find(filename) != globalBackup.end()) {
-        FileBackup *f = globalBackup[filename];
-        f->blocks[timestamp] = block;
-        f->lastUpdated = timestamp;
+        FileBackup::updateExisting(globalBackup[filename], block, timestamp, filename);
     }
     else {
-        auto *f = new FileBackup(filename);
-        f->blocks[timestamp] = block;
-        f->lastUpdated = timestamp;
+        FileBackup *f = FileBackup::setNewImage(block, timestamp, filename);
         globalBackup[filename] = f;
     }
 }
@@ -37,13 +33,13 @@ void MainBackup::incrementalBackup(time_t timestamp, const string &filename, con
             vector<string> latestImage = f->blocks[lastUpdated];
             int blockIndex = blockInfo->blockNumber;
             string content = blockInfo->content;
-            f->updateNewImage(f, blockIndex, timestamp, latestImage, content);
+            FileBackup::updateNewImage(f, blockIndex, timestamp, latestImage, content);
         }
         else {
             time_t lastUpdated = f->lastUpdated;
             vector<string> latestImage = f->blocks[lastUpdated];
             auto blockIndex = blockInfo->blockNumber;
-            f->deleteBlock(f, blockIndex, timestamp, latestImage);
+            FileBackup::deleteBlock(f, blockIndex, timestamp, latestImage);
         }
     }
     else {
@@ -57,10 +53,10 @@ void MainBackup::readFile(time_t timestamp, const string &filename) {
         FileBackup *f = mb.getGlobalBackup()[filename];
         if (f->blocks.find(timestamp) == f->blocks.end()) {
             const auto index = --f->blocks.lower_bound(timestamp);
-            f->print(index->second);
+            FileBackup::print(index->second);
         }
         else {
-            f->print(f->blocks[timestamp]);
+            FileBackup::print(f->blocks[timestamp]);
         }
     }
     else {
